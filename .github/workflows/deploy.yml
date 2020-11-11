@@ -31,12 +31,15 @@ jobs:
         env:
           USER_NAME: ${{ secrets.USER_NAME }}
           HOST_ADDRESS: ${{ secrets.HOST_ADDRESS }}
-        run: | 
-          ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -t -i private_key "${USER_NAME}@${HOST_ADDRESS}" \
-          cd ~/isucon2020-wkktmtos && \
-          git pull && \
-          ./build.sh && \
-          ./deploy.sh
+        run: |
+          ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -tt -i private_key "${USER_NAME}@${HOST_ADDRESS}" "\
+          cd isucon2020-wkktmtos && \
+          git stash && \
+          git switch master && \
+          git pull origin master -f && \
+          chmod +x ./build.sh && ./build.sh && \
+          chmod +x ./deploy.sh && ./deploy.sh \
+          "
   finish:
     needs: deploy
     runs-on: ubuntu-latest
