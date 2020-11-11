@@ -1,0 +1,44 @@
+# This is a basic workflow to help you get started with Actions
+
+name: deploy
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  workflow_dispatch:
+    inputs:
+      start:
+        description: 'start-deploy'
+        required: true
+        default: 'start'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  start:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo start
+  deploy:
+    needs: start
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: make private_key
+        env:
+          PRIVATE_KEY: ${{ secrets.SECRET_KEY }}
+        run: echo "$PRIVATE_KEY" > private_key && chmod 700 private_key
+      - name: ssh connect
+        env:
+          USER_NAME: ${{ secrets.USER_NAME }}
+          HOST_ADDRESS: ${{ secrets.HOST_ADDRESS }}
+        run: | 
+          ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -t -i private_key "${USER_NAME}@${HOST_ADDRESS}" \
+          cd ~/isucon2020-wkktmtos && \
+          git pull && \
+          ./build.sh && \
+          ./deploy.sh
+  finish:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo finish
