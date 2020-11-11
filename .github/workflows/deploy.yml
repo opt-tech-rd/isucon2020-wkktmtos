@@ -17,7 +17,12 @@ jobs:
   start:
     runs-on: ubuntu-latest
     steps:
-      - run: echo start
+      - name: Slack Notification
+        uses: tokorom/action-slack-incoming-webhook@main
+        env:
+          INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+        with:
+          text: Hello, Slack!
   deploy:
     needs: start
     runs-on: ubuntu-latest
@@ -44,4 +49,9 @@ jobs:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
-      - run: echo finish
+      - name: Slack Notification
+        uses: tokorom/action-slack-incoming-webhook@main
+        env:
+          INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+        with:
+          text: Hello, Slack!
