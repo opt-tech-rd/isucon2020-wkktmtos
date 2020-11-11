@@ -22,7 +22,7 @@ jobs:
         env:
           INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
         with:
-          text: Hello, Slack!
+          text: "@channel デプロイ始めるぞ！"
   deploy:
     needs: start
     runs-on: ubuntu-latest
@@ -54,4 +54,4 @@ jobs:
         env:
           INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
         with:
-          text: Hello, Slack!
+          text: "@channel デプロイ終わったぞ！"
