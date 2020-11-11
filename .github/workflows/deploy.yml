@@ -17,12 +17,15 @@ jobs:
   start:
     runs-on: ubuntu-latest
     steps:
+      - run: |
+          echo "::set-output name=url::https://github.com/opt-tech-rd/isucon2020-wkktmtos/actions/runs/${GITHUB_RUN_ID}"
+        id: workflow-url
       - name: Slack Notification
         uses: tokorom/action-slack-incoming-webhook@main
         env:
           INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
         with:
-          text: "<!here> デプロイ始めるぞ！"
+          text: ":exclamation: :exclamation: :exclamation: <!here> デプロイ始めるぞ！ :exclamation: :exclamation: :exclamation:\nworkflow: ${{ steps.workflow-url.outputs.url }}"
   deploy:
     needs: start
     runs-on: ubuntu-latest
@@ -53,5 +56,6 @@ jobs:
         uses: tokorom/action-slack-incoming-webhook@main
         env:
           INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          GITHUB_RUN_ID: ${{ env.GITHUB_RUN_ID }}
         with:
-          text: "<!here> デプロイ終わったぞ！"
+          text: ":star: :star: :star: <!here> デプロイ終わったぞ！ :star: :star: :star:"
