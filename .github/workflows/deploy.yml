@@ -8,9 +8,9 @@ on:
   workflow_dispatch:
     inputs:
       start:
-        description: 'start-deploy'
+        description: "start-deploy"
         required: true
-        default: 'start'
+        default: "start"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
