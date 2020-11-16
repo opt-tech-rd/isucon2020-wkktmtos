@@ -8,5 +8,13 @@
 		"format": "run-s format:*",
 		"format:prettier": "prettier --write .",
 		"format:goreturn": "goreturns -l -w ."
+	},
+	"license": "UNLICENSED",
+	"private": true,
+	"engineStrict": true,
+	"engines": {
+		"node": "^14.7.0",
+		"npm": "yarnを使用してください",
+		"yarn": "^1.22.4"
 	}
 }
