@@ -7,7 +7,11 @@
 	"scripts": {
 		"format": "run-s format:*",
 		"format:prettier": "prettier --write .",
-		"format:goreturn": "goreturns -l -w ."
+		"format:goreturn": "goreturns -l -w .",
+		"build": "run-s build:*",
+		"build:hoge": "echo hoge",
+		"predeploy": "yarn build",
+		"deploy": "echo fuga"
 	},
 	"license": "UNLICENSED",
 	"private": true,
