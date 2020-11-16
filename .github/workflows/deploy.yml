@@ -45,8 +45,8 @@ jobs:
           git stash && \
           git switch master && \
           git pull origin master -f && \
-          chmod +x ./scripts/build.sh && ./scripts/build.sh && \
-          chmod +x ./scripts/deploy.sh && ./scripts/deploy.sh \
+          yarn install && \
+          yarn deploy \
           "
   finish:
     needs: deploy
