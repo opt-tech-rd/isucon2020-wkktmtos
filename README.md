@@ -1,5 +1,5 @@
 # isucon2020-wkktmtos
 
-## 拡張機能
-
--
+- `yarn install`
+- `go build`
+- `yarn format`
